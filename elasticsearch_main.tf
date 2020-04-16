@@ -1,7 +1,7 @@
 provider "aws" {
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-  region = "${var.aws_region}"
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  region = var.aws_region
   }
 
 resource "aws_security_group" "es_cluster_sg" {
@@ -79,7 +79,7 @@ resource "aws_iam_role_policy_attachment" "elasticsearch_iam_role_policy" {
   policy_arn = "${aws_iam_policy.elasticsearch_iam_policy.arn}"
 }
 
-resource "aws_iam_instance_profile" "elasticsearch_profile" {
-  name  = "elasticsearch_profile"
+resource "aws_iam_instance_profile" "es_profile" {
+  name  = "es_profile"
   role = "${aws_iam_role.elasticsearch_iam_role.name}"
 }

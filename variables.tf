@@ -6,6 +6,10 @@ variable "aws_secret_key" {
  default = ""
 }
 
+variable "keypair_name" {
+ default = "es_keys"
+}
+
 variable "aws_access_key" {
  default = ""
 }
