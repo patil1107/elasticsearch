@@ -43,3 +43,8 @@ There are 5 main files required for this setup:
 2. https://www.elastic.co/guide/en/elasticsearch/plugins/current/discovery-ec2-usage.html
 3. https://medium.com/@abhinav.gupta.2406/ec2-discovery-with-elasticsearch-f9c9b0a67b79
 4. https://blog.francium.tech/install-aws-ec2-discovery-plugin-in-elasticsearch-5a973348cad9
+
+# Feedback
+
+This exercise covers Automation, Infrastructure as a code, Configuration Management and Security. The exercise requires knowledge of Elastisearch, completing it in 2.5 hrs is very difficuilt. I have learned many new things after completing the assignment.
+
