@@ -62,6 +62,6 @@ This exercise covers Automation, Infrastructure as a code, Configuration Managem
 7. Run `terraform init`
 8. Run `terraform apply`
 
-# Issues Faced while performing the task
+# Issues faced while performing the task
 
 I faced many issues while securing the cluster with SSL/TLS, I have commented the security configuration for master and the certificate creation for data nodes is pending because we do not have IP's for the data nodes while configuring master. It is quite difficult to complete the task as I was new to Elastisearch and Terraform.
