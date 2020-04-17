@@ -31,6 +31,27 @@ echo "node.master: true" >> /etc/elasticsearch/elasticsearch.yml
 echo "node.data: false" >> /etc/elasticsearch/elasticsearch.yml
 echo "node.ingest: true" >> /etc/elasticsearch/elasticsearch.yml
 
+#Generating CA and SSL Certificate
+cd /usr/share/elasticsearch/bin
+echo "" | ./elasticsearch-certutil ca --out elasticsearch-ca.p12
+ip=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+echo '' | ./elasticsearch-certutil cert --ca elasticsearch-ca.p12 --ip $ip --out elasticsearch-cert-$ip.p12 --pass ''
+
+#Copying ssl cert to elasticsearch directory
+mv /usr/share/elasticsearch/elasticsearch-cert-$ip.p12 /etc/elasticsearch
+chmod 755 /etc/elasticsearch/elasticsearch-cert-$ip.p12
+
+#Adding configurations to elasticsearch.yml file
+echo "xpack.security.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.http.ssl.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.transport.ssl.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.transport.ssl.verification_mode: certificate" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.transport.ssl.keystore.path: /etc/elasticsearch/elasticsearch-cert-$ip.p12" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.transport.ssl.truststore.path: /etc/elasticsearch/elasticsearch-cert-$ip.p12" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.http.ssl.keystore.path: /etc/elasticsearch/elasticsearch-cert-$ip.p12" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.http.ssl.truststore.path: /etc/elasticsearch/elasticsearch-cert-$ip.p12" >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.http.ssl.client_authentication: optional" >> /etc/elasticsearch/elasticsearch.yml
+
 # Reloading the daemon and enabling the elasticsearch service
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch.service

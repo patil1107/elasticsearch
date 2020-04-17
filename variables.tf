@@ -17,5 +17,5 @@ variable "aws_ami" {
 }
 
 variable "aws_instance_type" {
-  default = "t2.micro"
+  default = "t2.medium"
 }
