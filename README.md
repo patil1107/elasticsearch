@@ -37,6 +37,9 @@ There are 5 main files required for this setup:
 4. master_node_setup.sh: Shell script for installing and configuring master node.
 5. data_node_setup.sh: Shell script for installing and configuring data nodes.
 
+# NOTE 
+As per the assignment free tier `t2.micro` was to be used, but I faced issues while creating TLS certificates, the server was hanging (memory utilization was more than 85%) and taking lot of time so I have used `t2.medium`.
+
 # References 
 
 1. https://www.elastic.co/guide/en/elasticsearch/plugins/current/discovery-ec2.html
