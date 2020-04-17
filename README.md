@@ -9,20 +9,16 @@ ElasticSearch authentication can be secured using users and roles, also communic
 for SSL/TLS protocol
 
 3. How would you monitor this instance? What metrics would you monitor?
-As all the infrastructure is deployed on AWS, Cloudwatch can be used to monitor the elasticsearch cluster.
-I would monitor the memory usage, network, disk utilization and cpu utlization of the instances in cluster.
+As all the infrastructure is deployed on AWS, Cloudwatch can be used to monitor the elasticsearch cluster. I will monitor the memory usage, network, disk utilization and cpu utlization of the instances in cluster.
 
 4. Could you extend your solution to launch a secure cluster of ElasticSearch nodes? What
 would need to change to support this use case?
-
-Yes it is possible to extend my solution to launch a secure cluster of ElasticSearch nodes, for that we need to add some parameters
+Yes, it is possible to extend my solution to launch a secure cluster of ElasticSearch nodes, for that we need to add some parameters
 to elasticsearch.yml configuration file to support Xpack Security
 
 5. Could you extend your solution to replace a running ElasticSearch instance with little or no
 downtime? How?
-Yes, I can extend your solution to replace a running ElasticSearch instance with little or no
-downtime, I have used Ec2-Discover plugin which discovers the Elasticsearch EC2 instances automatically through the host provider ‘ec2’
-As we add nodes to the cluster, there no need to manually update the configuration file with new IP Address.
+Yes, I can extend your solution to replace a running ElasticSearch instance with little or no downtime, I have used Ec2-Discover plugin which discovers the Elasticsearch EC2 instances automatically through the host provider ‘ec2’. As we add nodes to the cluster, there no need to manually update the configuration file with new IP Address.
 
 6. Was it a priority to make your code well structured, extensible, and reusable? 
-Yes
+Yes.
