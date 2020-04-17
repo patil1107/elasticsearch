@@ -22,3 +22,12 @@ Yes, I can extend your solution to replace a running ElasticSearch instance with
 
 6. Was it a priority to make your code well structured, extensible, and reusable? 
 Yes.
+
+# Description
+There are 5 main files required for this setup:
+
+1. elasticsearch_main.tf: This file creates security groups and role.
+2. elasticsearch_master_node.tf: This file creates master node instance.
+3. elasticsearch_data_nodes.tf: This file creates data node instances.
+4. master_node_setup.sh: Shell script for installing and configuring master node.
+5. data_node_setup.sh: Shell script for installing and configuring data nodes.
