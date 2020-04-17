@@ -9,9 +9,9 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-x8
 shasum -a 512 -c elasticsearch-7.6.2-x86_64.rpm.sha512
 sudo rpm --install elasticsearch-7.6.2-x86_64.rpm
 
-# Setting heap size for the master node
-echo ES_JAVA_OPTS="\"-Xms512m -Xmx512m\"" >> /etc/sysconfig/elasticsearch
-echo MAX_LOCKED_MEMORY=unlimited >> /etc/sysconfig/elasticsearch
+# Setting heap size for the data node
+sed -i 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
+sed -i 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options
 
 # Discovery EC2 plugin is used for the nodes to create the cluster in AWS
 echo -e "y\n" | /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-ec2

@@ -10,14 +10,14 @@ shasum -a 512 -c elasticsearch-7.6.2-x86_64.rpm.sha512
 sudo rpm --install elasticsearch-7.6.2-x86_64.rpm
 
 # Setting heap size for the master node
-echo ES_JAVA_OPTS="\"-Xms512m -Xmx512m\"" >> /etc/sysconfig/elasticsearch
-echo MAX_LOCKED_MEMORY=unlimited >> /etc/sysconfig/elasticsearch
+sed -i 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
+sed -i 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options
 
 # Discovery EC2 plugin is used for the nodes to create the cluster in AWS
 echo -e "y\n" | /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-ec2
 
 # Configuration for Elasticsearch nodes to find each other
-nodename = $(http://169.254.169.254/latest/meta-data/local-hostname)
+nodename=$(curl http://169.254.169.254/latest/meta-data/local-hostname)
 echo "cluster.name: my-elasticsearch-cluster" >> /etc/elasticsearch/elasticsearch.yml
 echo "discovery.zen.hosts_provider: ec2" >> /etc/elasticsearch/elasticsearch.yml
 echo "discovery.ec2.endpoint: ec2.us-east-1.amazonaws.com" >> /etc/elasticsearch/elasticsearch.yml
@@ -25,8 +25,8 @@ echo "network.host: _ec2_" >> /etc/elasticsearch/elasticsearch.yml
 echo "discovery.ec2.tag.ec2discovery: es" >> /etc/elasticsearch/elasticsearch.yml
 echo "discovery.zen.minimum_master_nodes: 1" >> /etc/elasticsearch/elasticsearch.yml
 echo "discovery.ec2.host_type: private_ip" >> /etc/elasticsearch/elasticsearch.yml
-echo "node.name: '$nodename'" >> /etc/elasticsearch/elasticsearch.yml
-echo "cluster.initial_master_nodes: ["'$nodename'"]" >> /etc/elasticsearch/elasticsearch.yml
+echo "node.name: $nodename" >> /etc/elasticsearch/elasticsearch.yml
+echo "cluster.initial_master_nodes: ["$nodename"]" >> /etc/elasticsearch/elasticsearch.yml
 echo "node.master: true" >> /etc/elasticsearch/elasticsearch.yml
 echo "node.data: false" >> /etc/elasticsearch/elasticsearch.yml
 echo "node.ingest: true" >> /etc/elasticsearch/elasticsearch.yml
