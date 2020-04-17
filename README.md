@@ -31,3 +31,10 @@ There are 5 main files required for this setup:
 3. elasticsearch_data_nodes.tf: This Terraform code creates data node instances.
 4. master_node_setup.sh: Shell script for installing and configuring master node.
 5. data_node_setup.sh: Shell script for installing and configuring data nodes.
+
+# References 
+
+1. https://www.elastic.co/guide/en/elasticsearch/plugins/current/discovery-ec2.html
+2. https://www.elastic.co/guide/en/elasticsearch/plugins/current/discovery-ec2-usage.html
+3. https://medium.com/@abhinav.gupta.2406/ec2-discovery-with-elasticsearch-f9c9b0a67b79
+4. https://blog.francium.tech/install-aws-ec2-discovery-plugin-in-elasticsearch-5a973348cad9
