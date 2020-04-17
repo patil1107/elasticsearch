@@ -48,3 +48,13 @@ There are 5 main files required for this setup:
 
 This exercise covers Automation, Infrastructure as a code, Configuration Management and Security. The exercise requires knowledge of Elastisearch, completing it in 2.5 hrs is very difficuilt. I have learned many new things after completing the assignment.
 
+# Steps
+
+1. Install `aws cli`
+2. Configure `aws cli`
+3. Create an `aws profile`
+4. Clone the repository
+5. Provide a key-pair in variable.tf
+6. Update your `aws profile` in elasticsearch_main.tf
+7. Run `terraform init`
+8. Run `terraform apply`
