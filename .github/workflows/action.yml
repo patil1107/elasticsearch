@@ -1,0 +1,16 @@
+name: Github to AWS CodeCommit Sync
+description: 'Synchronize from GitHub to CodeCommit via GitHub Actions using IAM credentials.'
+author: 'tsgit18'
+branding:
+  icon: terminal
+  color: yellow
+inputs:
+  repository_name:
+    description: CodeCommit repository name.
+    required: true
+  aws_region:
+    description: Region of the CodeCommit repository.
+    required: true
+runs:
+  using: 'docker'
+  image: './Dockerfile'
