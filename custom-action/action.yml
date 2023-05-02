@@ -13,4 +13,4 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: './Dockerfile'
+  image: './custom-action/Dockerfile'
