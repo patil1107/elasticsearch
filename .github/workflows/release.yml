@@ -40,7 +40,7 @@ jobs:
         
         # Copy to VM
         gcloud compute ssh test-instance-1 --zone=us-central1-f \
-        --command="echo '$SECRET_VALUE' > /home/test/secret.json" \
+        --command="echo '$SECRET_VALUE' > /tmp/secret.json" \
         --project=infra-agent-231800 \
         --tunnel-through-iap \
         --strict-host-key-checking=no
