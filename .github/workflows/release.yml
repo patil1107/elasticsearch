@@ -23,6 +23,10 @@ jobs:
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: infra-agent-231800
+
+    - name: Install NumPy for better tunnel performance
+      run: |
+        pip install numpy
         
     - name: Setup SSH keys
       run: |
@@ -34,6 +38,7 @@ jobs:
         gcloud compute ssh test-instance-1 --zone=us-central1-f \
         --command='echo "$KEY_CONTENT" > /home/test/sa-key.json' \
         --project=infra-agent-231800 \
-        --tunnel-through-iap
+        --tunnel-through-iap \
+        --strict-host-key-checking=no
       env:
         KEY_CONTENT: ${{ secrets.GCP_SA_KEY }}
