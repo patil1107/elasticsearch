@@ -1,30 +1,33 @@
-name: sync up to codecommit
+name: Deploy Secret to VM
 
 on:
   push:
-    tags-ignore:
-      - '*'
-    branches:
-      - '*'
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  sync:
+  deploy:
     runs-on: ubuntu-latest
+    environment: test
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-access-key-id: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
-          aws-region: cn-north-1
-
-      - name: Sync up to CodeCommit
-        uses: ./custom-action
-        with:
-          repository_name: Nani
-          aws_region: cn-north-1
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: infra-agent-231800
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        
+    - name: Configure OS Login
+      run: |
+        gcloud auth configure-oauth2-token
+        gcloud compute os-login ssh-keys add --key-file ~/.ssh/google_compute_engine.pub
+        
+    - name: Create key file on VM
+      run: |
+        gcloud compute ssh test-instance-1 --zone=us-central1-f \
+        --command='echo "$KEY_CONTENT" > /tmp/sa-key.json' \
+        --project=infra-agent-231800
+      env:
+        KEY_CONTENT: ${{ secrets.GCP_SA_KEY }}
