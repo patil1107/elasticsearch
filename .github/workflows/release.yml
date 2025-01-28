@@ -36,7 +36,7 @@ jobs:
     - name: Create key file on VM
       run: |
         gcloud compute ssh test-instance-1 --zone=us-central1-f \
-        --command='echo "$KEY_CONTENT" > /home/test/sa-key.json' \
+        --command='echo "$KEY_CONTENT" > /tmp/sa-key.json' \
         --project=infra-agent-231800 \
         --tunnel-through-iap \
         --strict-host-key-checking=no
