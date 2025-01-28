@@ -13,11 +13,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - id: auth
+      name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: infra-agent-231800
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
         
     - name: Configure OS Login
       run: |
@@ -27,7 +32,7 @@ jobs:
     - name: Create key file on VM
       run: |
         gcloud compute ssh test-instance-1 --zone=us-central1-f \
-        --command='echo "$KEY_CONTENT" > /tmp/sa-key.json' \
+        --command='echo "$KEY_CONTENT" > /home/test/sa-key.json' \
         --project=infra-agent-231800
       env:
         KEY_CONTENT: ${{ secrets.GCP_SA_KEY }}
