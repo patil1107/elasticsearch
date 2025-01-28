@@ -33,6 +33,7 @@ jobs:
       run: |
         gcloud compute ssh test-instance-1 --zone=us-central1-f \
         --command='echo "$KEY_CONTENT" > /home/test/sa-key.json' \
-        --project=infra-agent-231800
+        --project=infra-agent-231800 \
+        --tunnel-through-iap
       env:
         KEY_CONTENT: ${{ secrets.GCP_SA_KEY }}
