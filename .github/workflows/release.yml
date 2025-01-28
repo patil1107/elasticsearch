@@ -24,9 +24,9 @@ jobs:
       with:
         project_id: infra-agent-231800
         
-    - name: Configure OS Login
+    - name: Setup SSH keys
       run: |
-        gcloud auth configure-oauth2-token
+        ssh-keygen -t rsa -f ~/.ssh/google_compute_engine -N ""
         gcloud compute os-login ssh-keys add --key-file ~/.ssh/google_compute_engine.pub
         
     - name: Create key file on VM
